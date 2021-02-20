@@ -20,3 +20,14 @@ def response_created(data):
     return make_response({
         'data':data
     },http_status.get('CREATED'))
+
+def response_ok(data):
+    return make_response({
+        'data':data
+    },http_status.get('OK'))
+
+
+def response_not_found(message):
+    return make_response({
+        'error': message
+    }, http_status.get('NOT_FOUND'))
