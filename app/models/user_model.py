@@ -7,4 +7,3 @@ class User(ModelBase,db.Model):
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime,nullable=False)
-    updated_at = db.Column(db.DateTime,nullable=True)
