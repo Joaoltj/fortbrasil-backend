@@ -18,8 +18,15 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app,db)
-    from app.models.establishment import Establishment
-    from app.models.user import  User
+
+    from app.models.establishment_model import Establishment
+    from app.models.user_model import User
+
+    from app.controllers.establishment_controller import establishment_controller
+    from app.controllers.user_controller import user_controller
+
+    app.register_blueprint(establishment_controller,url_prefix='/establishments')
+    app.register_blueprint(user_controller,url_prefix='/user')
     return app
 
 
