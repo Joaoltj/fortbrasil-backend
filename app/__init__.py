@@ -10,7 +10,7 @@ import click
 
 db = SQLAlchemy()
 ma = Marshmallow()
-migrate = Migrate()
+migrate = Migrate(compare_type=True)
 
 def create_app():
     app = Flask(__name__)
