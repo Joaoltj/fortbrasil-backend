@@ -18,6 +18,8 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app,db)
+    from app.models.establishment import Establishment
+    from app.models.user import  User
     return app
 
 
