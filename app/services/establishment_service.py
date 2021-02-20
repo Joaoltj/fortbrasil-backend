@@ -30,3 +30,13 @@ def get_establishments():
         return establishments,False
     except Exception as e:
         return False, e.__str__()
+
+
+def delete_establishment(establishment):
+    try:
+        db.session.delete(establishment)
+        db.session.commit()
+        return True,False
+    except Exception as e:
+        return False, e.__str__()
+

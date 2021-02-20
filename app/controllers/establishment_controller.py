@@ -76,4 +76,16 @@ def put_establishment(id):
 
 @establishment_controller.route('/<int:id>',methods=['DELETE'])
 def delete_establishment(id):
-    pass
+    establishment, error = establishment_service.get_establishment(id)
+
+    if error:
+        return utils.response_bad_request(error)
+    elif establishment is None:
+        return utils.response_not_found('Establishment not found.')
+
+    success,error = establishment_service.delete_establishment(establishment)
+
+    if error:
+        return utils.response_bad_request(error)
+
+    return utils.response_ok('establishment successfully deleted.')
