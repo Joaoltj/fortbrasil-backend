@@ -1,13 +1,14 @@
 from flask import Blueprint,request
 from app.models.user_model import User
-from app.schemas.user_schema import UserRegisterSchema,UserLoginSchema
+from app.schemas.user_schema import UserRegisterSchema, UserLoginSchema, UserInfoSchema
 from app.services import user_service
 from app import utils
-from app.security import generate_token
+from app.security import generate_token, security_token, get_token_data
 
 
 register_schema = UserRegisterSchema()
 login_schema = UserLoginSchema()
+info_schema = UserInfoSchema()
 
 user_controller = Blueprint('user',__name__)
 
@@ -52,5 +53,17 @@ def user_register():
 
 
 @user_controller.route('/info',methods=['GET'])
+@security_token
 def user_info():
-    pass
+    data = get_token_data()
+    if not data:
+        return utils.response_bad_request('Erro desconhecido.')
+
+    user,error = user_service.get_user(data.get('id',0))
+
+    if error:
+        return utils.response_bad_request(error)
+
+    return utils.response_ok(info_schema.dump(user))
+
+

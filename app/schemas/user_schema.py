@@ -15,3 +15,7 @@ class UserLoginSchema(ma.Schema):
 
 
 
+class UserInfoSchema(ma.Schema):
+    name = fields.Str(required=True, validate=validate.Length(0, 100),allow_none=False)
+    email = fields.Email(required=True, validate=validate.Length(0, 100),allow_none=False)
+

@@ -37,6 +37,15 @@ def validate_token(data):
         return False
     return True
 
+def get_token_data():
+    try:
+        from flask import request
+        token = request.headers.get('Authorization')
+        token_decoded = decode(token.replace('Bearer ', ''))
+        return token_decoded
+    except:
+        return None
+
 def security_token(func):
     @wraps(func)
     def wrapper(*args, **kwargs):

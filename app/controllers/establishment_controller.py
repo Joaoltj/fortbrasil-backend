@@ -1,4 +1,4 @@
-from flask import Blueprint,request
+from flask import Blueprint, request
 from app.models.establishment_model import Establishment
 from app.services import establishment_service
 from app.schemas.establishment_schema import EstablishmentSchema
