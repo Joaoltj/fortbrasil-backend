@@ -9,8 +9,12 @@ schema = EstablishmentSchema()
 
 @establishment_controller.route('',methods=['GET'])
 def get_establishments():
-    pass
+    establishments, error = establishment_service.get_establishments()
 
+    if error:
+        return utils.response_bad_request(error)
+
+    return utils.response_ok(EstablishmentSchema(many=True).dump(establishments))
 
 
 @establishment_controller.route('/<int:id>',methods=['GET'])

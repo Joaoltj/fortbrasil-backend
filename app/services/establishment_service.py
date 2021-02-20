@@ -12,10 +12,17 @@ def save_establishment(establishment):
         return False, e.__str__()
 
 
-
 def get_establishment(id):
     try:
         establishment = Establishment.query.filter_by(id=id).first()
         return establishment,False
+    except Exception as e:
+        return False, e.__str__()
+
+
+def get_establishments():
+    try:
+        establishments = Establishment.query.all()
+        return establishments,False
     except Exception as e:
         return False, e.__str__()
