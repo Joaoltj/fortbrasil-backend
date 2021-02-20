@@ -45,13 +45,34 @@ def post_establishment():
 
     if error:
         return utils.response_server_error(error)
+
     return utils.response_created(schema.dump(establishment))
 
 
 
 @establishment_controller.route('/<int:id>',methods=['PUT'])
 def put_establishment(id):
-    pass
+    establishment,error = establishment_service.get_establishment(id)
+
+    if error:
+        return utils.response_bad_request(error)
+    elif establishment is None:
+        return utils.response_not_found('Establishment not found.')
+
+    data = request.get_json()
+    errors = schema.validate(data)
+
+    if errors:
+        return utils.response_bad_request(errors)
+
+    establishment.update(data,['id'])
+    establishment,error = establishment_service.save_establishment(establishment)
+
+    if error:
+        return utils.response_bad_request(error)
+    return utils.response_ok(schema.dump(establishment))
+
+
 
 @establishment_controller.route('/<int:id>',methods=['DELETE'])
 def delete_establishment(id):

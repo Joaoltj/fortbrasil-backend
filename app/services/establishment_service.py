@@ -4,7 +4,11 @@ from app.models.establishment_model import Establishment
 
 def save_establishment(establishment):
     try:
-        establishment.created_at = datetime.now()
+        if establishment.id:
+            establishment.updated_at = datetime.now()
+        else:
+            establishment.created_at = datetime.now()
+
         db.session.add(establishment)
         db.session.commit()
         return establishment,False
