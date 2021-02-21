@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
+from flask_cors import CORS
 from flask.cli import with_appcontext
 from app.config import Config
 import click
@@ -11,13 +12,13 @@ import click
 db = SQLAlchemy()
 ma = Marshmallow()
 migrate = Migrate(compare_type=True)
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app,db)
+    CORS(app)
 
     from app.models.establishment_model import Establishment
     from app.models.user_model import User
