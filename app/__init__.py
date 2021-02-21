@@ -12,6 +12,7 @@ import click
 db = SQLAlchemy()
 ma = Marshmallow()
 migrate = Migrate(compare_type=True)
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
