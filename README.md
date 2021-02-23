@@ -14,5 +14,5 @@ docker-compose -d
 ### Criar as tabelas no banco de dados
 
 ```
-flask create_tables
+docker exec -ti backend_api sh -c "flask create_tables"
 ```
