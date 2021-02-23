@@ -18,7 +18,7 @@ def user_login():
     errors = login_schema.validate(data)
     if errors:
         return utils.response_bad_request(errors)
-    user = user_service.get_user_by_email(data.get('email',''))
+    user = user_service.get_user_by_email(data.get('email','').lower())
 
     if not user:
         return utils.response_not_found('Usuário não encontrado.')
@@ -40,10 +40,11 @@ def user_register():
     if errors:
         return utils.response_bad_request(errors)
 
-    if user_service.get_user_by_email(data.get('email','')):
+    if user_service.get_user_by_email(data.get('email','').lower()):
         return utils.response_bad_request('E-mail já possui cadastro.')
 
     user = User(**data)
+    user.email = user.email.lower()
     user,error = user_service.save_user(user)
 
     if error:

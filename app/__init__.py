@@ -34,7 +34,6 @@ def create_app():
 
 
 app = create_app()
-print(app.url_map)
 
 @click.command(name='create_tables')
 @with_appcontext
