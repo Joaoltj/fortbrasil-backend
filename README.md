@@ -9,7 +9,7 @@
 
 ### Subir servidor via docker
 ```
-docker-compose -d 
+docker-compose up -d 
 ```
 ### Criar as tabelas no banco de dados
 
